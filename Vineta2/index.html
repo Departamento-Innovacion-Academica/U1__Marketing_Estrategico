@@ -24,6 +24,34 @@
             padding: 20px;
         }
 
+        /* Instrucción flotante superior */
+        .instruction-banner {
+            background-color: #e6f4f3;
+            color: #0d7377;
+            border: 1px solid #b2dcdb;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(13, 115, 119, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .carousel-container {
             position: relative;
             width: 100%;
@@ -138,10 +166,20 @@
             .card {
                 flex: 0 0 100%;
             }
+            .instruction-banner {
+                text-align: center;
+                padding: 10px 15px;
+                font-size: 13px;
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- Instrucción flotante superior -->
+    <div class="instruction-banner">
+        <span>💡</span> Haga clic sobre los botones para ampliar la información.
+    </div>
 
     <div class="carousel-container">
         <div class="carousel-track-container">
