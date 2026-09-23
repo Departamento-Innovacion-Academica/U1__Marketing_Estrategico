@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjetas Interactivas - Carrusel</title>
+    <!-- Importar la fuente Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Instrucción flotante superior */
+        .instruction-banner {
+            background-color: #e6f4f3;
+            color: #0d7377;
+            border: 1px solid #b2dcdb;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(13, 115, 119, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            overflow: hidden;
+            padding: 10px 0;
+        }
+
+        .carousel-track-container {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            gap: 20px;
+        }
+
+        .card {
+            flex: 0 0 calc(50% - 10px);
+            border-radius: 12px;
+            padding: 28px 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            text-align: left;
+            display: flex;
+            align-items: center;
+            min-height: 140px;
+            
+            /* Animación de humo (opacidad y desenfoque) */
+            opacity: 0;
+            filter: blur(10px);
+            transform: translateY(15px);
+            animation: smokeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Estilo 1: Fondo claro con borde turquesa (Tarjetas superiores) */
+        .card.card-light {
+            background: #f0f4f5;
+            border: 2px solid #55b3b1;
+        }
+
+        .card.card-light p {
+            color: #1e293b;
+        }
+
+        /* Estilo 2: Fondo turquesa sólido con texto blanco (Tarjetas inferiores) */
+        .card.card-solid {
+            background: #0d7377;
+            border: 2px solid #0d7377;
+        }
+
+        .card.card-solid p {
+            color: #ffffff;
+        }
+
+        /* Retraso escalonado para la animación de humo */
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.25s; }
+        .card:nth-child(3) { animation-delay: 0.4s; }
+        .card:nth-child(4) { animation-delay: 0.55s; }
+
+        @keyframes smokeIn {
+            0% {
+                opacity: 0;
+                filter: blur(12px);
+                transform: translateY(20px) scale(0.98);
+            }
+            100% {
+                opacity: 1;
+                filter: blur(0px);
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .card p {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        /* Botones de navegación del carrusel */
+        .carousel-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .carousel-btn {
+            background-color: #55b3b1;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.2s, opacity 0.3s;
+            box-shadow: 0 4px 8px rgba(85, 179, 177, 0.3);
+        }
+
+        .carousel-btn:hover:not(:disabled) {
+            background-color: #429593;
+            transform: scale(1.05);
+        }
+
+        .carousel-btn:disabled {
+            background-color: #cbd5e1;
+            cursor: not-allowed;
+            box-shadow: none;
+            opacity: 0.5;
+        }
+
+        /* Responsividad para pantallas pequeñas */
+        @media (max-width: 650px) {
+            .card {
+                flex: 0 0 100%;
+            }
+            .instruction-banner {
+                text-align: center;
+                padding: 10px 15px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Instrucción flotante superior -->
+    <div class="instruction-banner">
+        <span>💡</span> Haga clic sobre los botones para ampliar la información.
+    </div>
+
+    <div class="carousel-container">
+        <div class="carousel-track-container">
+            <div class="carousel-track" id="carouselTrack">
+                
+                <!-- Tarjeta 1 (Clara)[cite: 4] -->
+                <div class="card card-light">
+                    <p>¿Cuál es el perfil predominante de los clientes?[cite: 4]</p>
+                </div>
+
+                <!-- Tarjeta 2 (Clara)[cite: 4] -->
+                <div class="card card-light">
+                    <p>¿Qué atributos son más valorados por los consumidores?[cite: 4]</p>
+                </div>
+
+                <!-- Tarjeta 3 (Sólida)[cite: 4] -->
+                <div class="card card-solid">
+                    <p>¿Cuál es el nivel de satisfacción de los usuarios?[cite: 4]</p>
+                </div>
+
+                <!-- Tarjeta 4 (Sólida)[cite: 4] -->
+                <div class="card card-solid">
+                    <p>¿Qué porcentaje de personas manifiesta intención de compra?[cite: 4]</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Controles No Infinitos -->
+        <div class="carousel-buttons">
+            <button class="carousel-btn" id="prevBtn" disabled>&#10094;</button>
+            <button class="carousel-btn" id="nextBtn">&#10095;</button>
+        </div>
+    </div>
+
+    <script>
+        const track = document.getElementById('carouselTrack');
+        const cards = Array.from(track.children);
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        let currentIndex = 0;
+
+        function getCardsPerView() {
+            if (window.innerWidth <= 650) return 1;
+            return 2; 
+        }
+
+        function updateCarousel() {
+            const cardsPerView = getCardsPerView();
+            const maxIndex = Math.max(0, cards.length - cardsPerView);
+
+            if (currentIndex > maxIndex) {
+                currentIndex = maxIndex;
+            }
+
+            const cardWidth = cards[0].getBoundingClientRect().width;
+            const gap = 20; 
+            const moveAmount = currentIndex * (cardWidth + gap);
+
+            track.style.transform = `translateX(-${moveAmount}px)`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex >= maxIndex;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            const cardsPerView = getCardsPerView();
+            const maxIndex = cards.length - cardsPerView;
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+                updateCarousel();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            updateCarousel();
+        });
+
+        updateCarousel();
+    </script>
+
+</body>
+</html>
