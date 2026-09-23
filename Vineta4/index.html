@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjetas de Tendencias - Construcción y Diseño</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        /* Smoke-in animation effect combining blur, opacity and slight translation */
+        @keyframes smokeIn {
+            0% {
+                opacity: 0;
+                filter: blur(12px);
+                transform: translateY(20px) scale(0.95);
+            }
+            50% {
+                opacity: 0.5;
+                filter: blur(6px);
+                transform: translateY(10px) scale(0.98);
+            }
+            100% {
+                opacity: 1;
+                filter: blur(0px);
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .card-item {
+            opacity: 0;
+        }
+        .card-item.active {
+            animation: smokeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8">
+
+    <!-- Instrucción flotante superior -->
+    <div class="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#e6f4f3] border border-[#b2dcdb] text-[#0d7377] text-sm font-medium shadow-sm animate-fade-in">
+        <span>💡</span> Haga clic sobre los botones para ampliar la información.
+    </div>
+
+    <div class="w-full max-w-3xl mx-auto">
+        <div class="relative overflow-hidden rounded-3xl p-2 sm:p-6">
+            
+            <!-- Cards Track (6 Slides) -->
+            <div id="carouselTrack" class="flex transition-transform duration-500 ease-out">
+                
+                <!-- Card 1 -->
+                <div class="w-full flex-shrink-0 px-2">
+                    <div class="card-item bg-[#ffffff] border-2 border-[#5eead4]/60 rounded-2xl p-8 sm:p-10 shadow-sm min-h-[220px] sm:min-h-[200px] flex items-center">
+                        <p class="text-[#1e293b] text-lg sm:text-xl leading-relaxed text-left font-normal">
+                            Crecimiento de la construcción sostenible.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="w-full flex-shrink-0 px-2">
+                    <div class="card-item bg-[#ffffff] border-2 border-[#5eead4]/60 rounded-2xl p-8 sm:p-10 shadow-sm min-h-[220px] sm:min-h-[200px] flex items-center">
+                        <p class="text-[#1e293b] text-lg sm:text-xl leading-relaxed text-left font-normal">
+                            Incremento de la digitalización en procesos constructivos.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="w-full flex-shrink-0 px-2">
+                    <div class="card-item bg-[#ffffff] border-2 border-[#5eead4]/60 rounded-2xl p-8 sm:p-10 shadow-sm min-h-[220px] sm:min-h-[200px] flex items-center">
+                        <p class="text-[#1e293b] text-lg sm:text-xl leading-relaxed text-left font-normal">
+                            Mayor demanda de espacios multifuncionales.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="w-full flex-shrink-0 px-2">
+                    <div class="card-item bg-[#ffffff] border-2 border-[#5eead4]/60 rounded-2xl p-8 sm:p-10 shadow-sm min-h-[220px] sm:min-h-[200px] flex items-center">
+                        <p class="text-[#1e293b] text-lg sm:text-xl leading-relaxed text-left font-normal">
+                            Uso de tecnologías BIM.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="w-full flex-shrink-0 px-2">
+                    <div class="card-item bg-[#ffffff] border-2 border-[#5eead4]/60 rounded-2xl p-8 sm:p-10 shadow-sm min-h-[220px] sm:min-h-[200px] flex items-center">
+                        <p class="text-[#1e293b] text-lg sm:text-xl leading-relaxed text-left font-normal">
+                            Preferencia por edificaciones energéticamente eficientes.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="w-full flex-shrink-0 px-2">
+                    <div class="card-item bg-[#ffffff] border-2 border-[#5eead4]/60 rounded-2xl p-8 sm:p-10 shadow-sm min-h-[220px] sm:min-h-[200px] flex items-center">
+                        <p class="text-[#1e293b] text-lg sm:text-xl leading-relaxed text-left font-normal">
+                            Aumento de la importancia de la experiencia del cliente.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="flex items-center justify-between mt-6 px-4">
+            <button id="prevBtn" onclick="prevSlide()" class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-200 text-slate-700 font-medium hover:bg-slate-300 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Anterior
+            </button>
+
+            <span id="pageIndicator" class="text-sm font-semibold text-slate-500 tracking-wider">1 de 6</span>
+
+            <button id="nextBtn" onclick="nextSlide()" class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-800 text-white font-medium hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm">
+                Siguiente
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const totalSlides = 6;
+
+        const track = document.getElementById('carouselTrack');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const pageIndicator = document.getElementById('pageIndicator');
+        const cards = document.querySelectorAll('.card-item');
+
+        function updateCarousel() {
+            // Shift track
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
+            // Update page count indicator
+            pageIndicator.textContent = `${currentIndex + 1} de ${totalSlides}`;
+
+            // Handle non-infinite button states
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === totalSlides - 1;
+
+            // Trigger smoke fade-in animation on active card
+            cards.forEach((card, index) => {
+                if (index === currentIndex) {
+                    card.classList.remove('active');
+                    void card.offsetWidth; // Force reflow
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+        }
+
+        function nextSlide() {
+            if (currentIndex < totalSlides - 1) {
+                currentIndex++;
+                updateCarousel();
+            }
+        }
+
+        function prevSlide() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        }
+
+        // Initialize state on load
+        window.addEventListener('DOMContentLoaded', () => {
+            updateCarousel();
+        });
+    </script>
+
+</body>
+</html>
